@@ -43,16 +43,16 @@ class NavBar extends React.Component {
                     <h4 className="h-auto font-bold">ADMIN DASHBOARD</h4>
                 </div>
                     <div>
-                    <Link to="/login" className="font-semibold text-sm hover:bg-gray-200 px-4 py-2 rounded">Sign In</Link>
-                    <Link to="/signup" className="font-semibold text-sm hover:bg-gray-200 px-4 py-2 rounded">Sign Up</Link>
-                </div>
+                        <Link to="/login" className="font-semibold text-sm hover:bg-gray-200 px-4 py-2 rounded">Sign In</Link>
+                        <Link to="/signup" className="font-semibold text-sm hover:bg-gray-200 px-4 py-2 rounded">Sign Up</Link>
+                    </div>
                     <aside className={classes}>
                     <span className="flex w-full justify-between p-5">
                         <h4 className="h-auto font-bold">ADMIN DASHBOARD</h4>
                         <button onClick={this.handleDrawer}>X</button>
                     </span>
                     <span className="flex items-center px-5 py-3 hover:bg-gray-700">
-                        <button className="mr-2 text-sm font-semibold" onClick={this.closeDrawer}>HOME</button>
+                        <Link to="/" className="mr-2 text-sm font-semibold" onClick={this.closeDrawer}>HOME</Link>
                     </span>
                     <span className="flex items-center px-5 py-3 hover:bg-gray-700">
                         <button className="mr-2 text-sm font-semibold" onClick={this.closeDrawer}>USERS</button>
