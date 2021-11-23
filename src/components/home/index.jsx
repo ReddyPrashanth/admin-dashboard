@@ -1,5 +1,4 @@
 import React from "react";
-import NavBar from "./../shared/navbar";
 
 class Home extends React.Component{
     state = {
@@ -12,15 +11,17 @@ class Home extends React.Component{
         });
     }
 
-    closeDrawer = () => [
+    closeDrawer = () => {
         this.setState({
             isOpen: false
         })
-    ]
+    }
 
     render() {
         return (
-            <NavBar isOpen={this.state.isOpen} onToggleDrawer={this.handleDrawer} onCloseDrawer={this.closeDrawer}/>
+            <div>
+                Home Page
+            </div>
         )
     }
 }
