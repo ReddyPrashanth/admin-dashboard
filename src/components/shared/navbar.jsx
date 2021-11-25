@@ -40,7 +40,7 @@ class NavBar extends React.Component {
                             <path d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
-                    <h4 className="h-auto font-bold">ADMIN DASHBOARD</h4>
+                    <Link to="/"><h4 className="h-auto font-bold">ADMIN DASHBOARD</h4></Link>
                 </div>
                     <div>
                         <Link to="/login" className="font-semibold text-sm hover:bg-gray-200 px-4 py-2 rounded">Sign In</Link>

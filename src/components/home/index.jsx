@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import { getColumns, getUsers, loadUsers } from "../../store/users";
 import Table from "../shared/Table";
 
 class Home extends Table{
@@ -32,7 +34,9 @@ class Home extends Table{
                 firstName: 'prashanth',
                 lastName: 'sreepathi',
                 gender: 'male',
-                address: '5401 W 57th street'
+                address: {
+                    address1: '5401 W 57th street'
+                }
             },
             {
                 id: 2,
@@ -40,13 +44,19 @@ class Home extends Table{
                 firstName: 'prashanth',
                 lastName: 'sreepathi',
                 gender: 'male',
-                address: '5401 W 57th street'
+                address: {
+                    address1: '5401 W 57th street'
+                }
             }
         ]
     }
 
+    componentDidMount() {
+        this.props.loadUsers();
+    }
+
     render() {
-        const {columns, data} = this.state;
+        const {columns, users} = this.props;
         return (
             <table className="min-w-full divide-y divide-gray-200 border">
                 <thead className="bg-gray-50">
@@ -69,11 +79,20 @@ class Home extends Table{
                     </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                    {data.map(d => this.createRow(d))}
+                    {users.map(d => this.createRow(d))}
                 </tbody>
             </table>
         )
     }
 }
 
-export default Home;
+const mapDispatchToProps = (dispatch) => ({
+    loadUsers: () => dispatch(loadUsers()),
+});
+
+const mapStateToProps = (state) => ({
+    users: getUsers(state),
+    columns: getColumns(state)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
