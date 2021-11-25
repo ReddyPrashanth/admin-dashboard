@@ -20,7 +20,7 @@ class Table extends React.Component {
     }
 
     createRow(item) {
-        const {columns} = this.state;
+        const {columns} = this.props;
         return <tr key={item.id}>
             {columns.map(col => {
                 if(col.name !== 'address') return <td key={col.name} className="px-6 py-4">{item[col.name]}</td>

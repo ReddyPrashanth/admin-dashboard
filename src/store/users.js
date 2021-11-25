@@ -28,6 +28,9 @@ const slice = createSlice({
         ],
         data: [],
         loading: false,
+        limit: 10,
+        page: 1,
+        totalUsers: 0
     },
     reducers: {
         usersRequested: (users, action) => {
@@ -35,6 +38,9 @@ const slice = createSlice({
         },
         usersReceived: (users, action) => {
             users.data = action.payload.data;
+            users.limit = action.payload.meta.limit;
+            users.page = action.payload.meta.page;
+            users.totalUsers = action.payload.meta.totalItems;
             users.loading = false;
         },
         usersRequestFailed: (users, action) => {
@@ -46,10 +52,10 @@ const slice = createSlice({
 export const {usersRequested, usersReceived, usersRequestFailed} = slice.actions;
 export default slice.reducer;
 
-const url = '/users?limit=10&page=1';
+const url = '/users';
 
-export const loadUsers = () => apiCallBegan({
-    url,
+export const loadUsers = (limit,page) => apiCallBegan({
+    url: `${url}?limit=${limit}&page=${page}`,
     method: 'get',
     onStart: usersRequested.type,
     onSuccess: usersReceived.type,
@@ -66,4 +72,19 @@ export const getUsers = createSelector(
 export const getColumns = createSelector(
     state => state.entities.users,
     users => users.columns
+);
+
+export const getLimit = createSelector(
+    state => state.entities.users,
+    users => users.limit
+);
+
+export const getPage = createSelector(
+    state => state.entities.users,
+    users => users.page
+);
+
+export const getUserCount = createSelector(
+    state => state.entities.users,
+    users => users.totalUsers
 );
