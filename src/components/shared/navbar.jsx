@@ -40,7 +40,7 @@ class NavBar extends React.Component {
                             <path d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
-                    <Link to="/"><h4 className="h-auto font-bold">ADMIN DASHBOARD</h4></Link>
+                    <Link to="/"><h4 className="h-auto font-bold"><span className="text-purple-600">ADMIN</span> DASHBOARD</h4></Link>
                 </div>
                     <div>
                         <Link to="/login" className="font-semibold text-sm hover:bg-gray-200 px-4 py-2 rounded">Sign In</Link>
@@ -55,7 +55,7 @@ class NavBar extends React.Component {
                         <Link to="/" className="mr-2 text-sm font-semibold" onClick={this.closeDrawer}>HOME</Link>
                     </span>
                     <span className="flex items-center px-5 py-3 hover:bg-gray-700">
-                        <button className="mr-2 text-sm font-semibold" onClick={this.closeDrawer}>USERS</button>
+                        <Link to="/users" className="mr-2 text-sm font-semibold" onClick={this.closeDrawer}>USERS</Link>
                     </span>
                 </aside>
                 </nav>

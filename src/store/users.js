@@ -30,7 +30,8 @@ const slice = createSlice({
         loading: false,
         limit: 10,
         page: 1,
-        totalUsers: 0
+        totalUsers: 0,
+        userId: null,
     },
     reducers: {
         usersRequested: (users, action) => {
@@ -45,11 +46,19 @@ const slice = createSlice({
         },
         usersRequestFailed: (users, action) => {
             users.loading = false;
+        },
+        userSelected: (users, action) => {
+            users.userId = action.payload;
         }
     }
 });
 
-export const {usersRequested, usersReceived, usersRequestFailed} = slice.actions;
+export const {
+    usersRequested, 
+    usersReceived, 
+    usersRequestFailed,
+    userSelected,
+} = slice.actions;
 export default slice.reducer;
 
 const url = '/users';
@@ -88,3 +97,11 @@ export const getUserCount = createSelector(
     state => state.entities.users,
     users => users.totalUsers
 );
+
+export const getUser = createSelector(
+    state => state.entities.users,
+    users => {
+        const {userId, data} = users;
+        return data.find(user => user.id === userId);
+    }
+)

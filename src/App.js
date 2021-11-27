@@ -7,6 +7,8 @@ import Home from './components/home';
 import Login from './components/authentication/Login';
 import SignUp from './components/authentication/SignUp';
 import { Provider } from 'react-redux';
+import Users from './components/users';
+import UserProfile from './components/users/UserProfile';
 
 const store = configureStore();
 
@@ -18,6 +20,8 @@ function App() {
         <main className="container mx-16 my-4">
           <Switch>
             <Route path="/home" component={Home}/>
+            <Route path="/users/:id" component={UserProfile}/>
+            <Route path="/users" component={Users}/>
             <Route path="/login" component={Login}/>
             <Route path="/signup" component={SignUp}/>
             <Redirect exact to="/home" from="/"/>
