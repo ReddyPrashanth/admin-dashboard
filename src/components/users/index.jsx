@@ -1,10 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getColumns, getLimit, getPage, getUserCount, getUsers, loadUsers } from "../../store/users";
+import { getColumns, getLimit, getPage, getUserCount, getUsers, loadUsers } from "../../store/entities/users";
 import Pagination from "../shared/Pagination";
 import Table from "../shared/Table";
 
-class Users extends Table {
+class Users extends React.Component {
+
+    name = "users";
 
     handlePagination = (page) => {
         const {limit} = this.props;
@@ -20,31 +22,8 @@ class Users extends Table {
         const {columns, users, limit, page, totalUsers} = this.props;
         return (
             <div>
-                <table className="min-w-full divide-y divide-gray-200 border">
-                    <thead className="bg-gray-50">
-                        <tr>
-                        {columns.map(col => this.createHeader(col))}
-                        <th
-                            scope="col" 
-                            className="
-                                px-6 
-                                py-3 
-                                text-left 
-                                text-xs
-                                font-medium
-                                text-gray-500
-                                uppercase
-                                tracking-wider"
-                            >
-                            Action
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                        {users.map(d => this.createRow(d))}
-                    </tbody>
-                </table>
-                <Pagination page={page} limit={limit} totalItems={totalUsers} onPaginate={this.handlePagination}/>
+                <Table columns={columns} items={users} name={this.name}/>
+                <Pagination page={page} limit={limit} totalItems={totalUsers} onPaginate={this.handlePagination} name={this.name}/>
             </div>
         )
     }

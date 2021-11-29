@@ -1,5 +1,5 @@
 import {createSlice, createSelector} from '@reduxjs/toolkit';
-import { apiCallBegan } from './api';
+import { apiCallBegan } from '../api';
 
 const slice = createSlice({
     name: 'users',

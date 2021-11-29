@@ -9,6 +9,8 @@ import SignUp from './components/authentication/SignUp';
 import { Provider } from 'react-redux';
 import Users from './components/users';
 import UserProfile from './components/users/UserProfile';
+import Roles from './components/roles';
+import Permissions from './components/permissions';
 
 const store = configureStore();
 
@@ -22,6 +24,8 @@ function App() {
             <Route path="/home" component={Home}/>
             <Route path="/users/:id" component={UserProfile}/>
             <Route path="/users" component={Users}/>
+            <Route path="/roles" component={Roles}/>
+            <Route path="/permissions" component={Permissions}/>
             <Route path="/login" component={Login}/>
             <Route path="/signup" component={SignUp}/>
             <Redirect exact to="/home" from="/"/>

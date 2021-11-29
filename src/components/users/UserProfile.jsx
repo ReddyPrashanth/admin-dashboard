@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getUser, userSelected } from '../../store/users';
+import { getUser, userSelected } from '../../store/entities/users';
 import ProfilePicture from './ProfilePicture';
 import SocialMedia from './SocialMedia';
 import UserDetails from './UserDetails';

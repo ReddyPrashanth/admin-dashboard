@@ -57,6 +57,12 @@ class NavBar extends React.Component {
                     <span className="flex items-center px-5 py-3 hover:bg-gray-700">
                         <Link to="/users" className="mr-2 text-sm font-semibold" onClick={this.closeDrawer}>USERS</Link>
                     </span>
+                    <span className="flex items-center px-5 py-3 hover:bg-gray-700">
+                        <Link to="/roles" className="mr-2 text-sm font-semibold" onClick={this.closeDrawer}>ROLES</Link>
+                    </span>
+                    <span className="flex items-center px-5 py-3 hover:bg-gray-700">
+                        <Link to="/permissions" className="mr-2 text-sm font-semibold" onClick={this.closeDrawer}>PERMISSIONS</Link>
+                    </span>
                 </aside>
                 </nav>
             </header>

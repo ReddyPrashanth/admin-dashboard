@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Input from './Input';
+import TextArea from './TextArea';
 
 class Form extends React.Component {
     handleChange = ({currentTarget: input}) => {
@@ -36,6 +37,17 @@ class Form extends React.Component {
                 onChange={this.handleChange}
                 plceholder={label}
                 maxLength={maxLength}/>
+    }
+
+    renderTextArea(name, label, rows="3") {
+        const { data } = this.state;
+        return <TextArea 
+                name={name}
+                label={label}
+                rows={rows}
+                value={data[name]}
+                onChange={this.handleChange}
+                plceholder={label}/>
     }
 }
 

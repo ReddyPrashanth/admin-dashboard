@@ -21,8 +21,9 @@ const api = ({ dispatch }) => next => async action => {
 
         if(onSuccess) dispatch({type: onSuccess, payload: response.data});
     }catch(error) {
-        dispatch(actions.apiCallFailed(error.message));
-        if(onError) dispatch({type: onError, payload: error.message});
+        const {message} = error.response.data;
+        dispatch(actions.apiCallFailed(message));
+        if(onError) dispatch({type: onError, payload: message});
     }
 }
 
