@@ -11,6 +11,7 @@ import Users from './components/users';
 import UserProfile from './components/users/UserProfile';
 import Roles from './components/roles';
 import Permissions from './components/permissions';
+import RoleDetails from './components/roles/RoleDetails';
 
 const store = configureStore();
 
@@ -24,6 +25,7 @@ function App() {
             <Route path="/home" component={Home}/>
             <Route path="/users/:id" component={UserProfile}/>
             <Route path="/users" component={Users}/>
+            <Route path="/roles/:id" component={RoleDetails}/>
             <Route path="/roles" component={Roles}/>
             <Route path="/permissions" component={Permissions}/>
             <Route path="/login" component={Login}/>

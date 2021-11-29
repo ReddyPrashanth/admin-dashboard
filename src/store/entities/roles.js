@@ -24,6 +24,7 @@ const slice = createSlice({
         page: 1,
         totalRoles: 0,
         error: null,
+        role: null,
     },
     reducers: {
         rolesRequested: (roles, action) => {
@@ -41,6 +42,12 @@ const slice = createSlice({
         },
         roleCreationRequested: (roles, action) => {
             roles.loading = true;
+        },
+        roleSelected: (roles, action) => {
+            roles.role = action.payload;
+        },
+        roleSelectionFailed: (roles, action) => {
+            roles.role = null;
         },
         roleCreated: (roles, action) => {
             roles.loading = false;
@@ -62,6 +69,7 @@ export const {
     rolesReceived,
     rolesRequestFailed,
     roleCreationRequested,
+    roleSelected,
     roleCreated,
     roleCreationFailed,
     resetRoleError,
@@ -88,6 +96,14 @@ export const createRole = (formData) => apiCallBegan({
     onSuccess: roleCreated.type,
     onError: roleCreationFailed.type
 });
+
+export const fetchRole = (roleId) => apiCallBegan({
+    url: `${url}/${roleId}`,
+    method: 'get',
+    onStart: rolesRequested.type,
+    onSuccess: roleSelected.type,
+    onError: roleCreationFailed.type
+})
 
 // Selectors
 
@@ -125,3 +141,8 @@ export const getError = createSelector(
     state => state.entities.roles,
     roles => roles.error
 );
+
+export const getRole = createSelector(
+    state => state.entities.roles,
+    roles => roles.role
+)
