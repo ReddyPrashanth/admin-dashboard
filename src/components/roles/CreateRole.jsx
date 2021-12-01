@@ -23,6 +23,10 @@ class CreateRole extends Form {
         })
     }
 
+    componentDidMount() {
+        this.props.resetError();
+    }
+
     render() {
         const { error } = this.props;
         return (
@@ -44,6 +48,7 @@ class CreateRole extends Form {
 
 const mapDispatchToProps = (dispatch) => ({
     createRole: (formData) => dispatch(createRole(formData)),
+    resetError: () => dispatch(resetRoleError())
 });
 
 export default connect(null, mapDispatchToProps)(CreateRole);

@@ -59,6 +59,7 @@ export const {
     permissionCreated,
     permissionCreationFailed,
     resetPermissionError,
+    attachablePermissionsRequested,
 } = slice.actions;
 export default slice.reducer;
 

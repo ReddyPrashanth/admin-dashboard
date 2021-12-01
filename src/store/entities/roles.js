@@ -25,9 +25,11 @@ const slice = createSlice({
         totalRoles: 0,
         error: null,
         role: null,
+        attachablePermissions: [],
     },
     reducers: {
         rolesRequested: (roles, action) => {
+            roles.attachablePermissions = [];
             roles.loading = true;
         },
         rolesReceived: (roles, action) => {
@@ -61,6 +63,13 @@ const slice = createSlice({
         },
         resetRoleError: (roles, action) => {
             roles.error = null;
+        },
+        attachablePermissionsRequested: (roles, action) => {
+            roles.attachablePermissions = action.payload;
+            roles.loading = false; 
+        },
+        permissionsAttached: (roles, action) => {
+            roles.loading = false;
         }
     }
 });
@@ -73,6 +82,8 @@ export const {
     roleCreated,
     roleCreationFailed,
     resetRoleError,
+    attachablePermissionsRequested,
+    permissionsAttached,
 } = slice.actions;
 export default slice.reducer;
 
@@ -103,7 +114,24 @@ export const fetchRole = (roleId) => apiCallBegan({
     onStart: rolesRequested.type,
     onSuccess: roleSelected.type,
     onError: roleCreationFailed.type
-})
+});
+
+export const fetchAttachablePermissions = (roleId) => apiCallBegan({
+    url: `/permissions/role/${roleId}`,
+    method: 'get',
+    onStart: rolesRequested.type,
+    onSuccess: attachablePermissionsRequested.type,
+    onError: roleCreationFailed.type
+});
+
+export const attachPermissionsForARole = (roleId, permissions) => apiCallBegan({
+    url: `${url}/${roleId}/permissions`,
+    method: 'post',
+    data: {permissions},
+    onStart: rolesRequested.type,
+    onSuccess: permissionsAttached.type,
+    onError: roleCreationFailed.type
+});
 
 // Selectors
 
@@ -145,4 +173,9 @@ export const getError = createSelector(
 export const getRole = createSelector(
     state => state.entities.roles,
     roles => roles.role
+);
+
+export const getAttachablePermissions = createSelector(
+    state => state.entities.roles,
+    roles => roles.attachablePermissions
 )
