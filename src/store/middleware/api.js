@@ -12,10 +12,11 @@ const api = ({ dispatch }) => next => async action => {
 
     try{
         const response = await axios.request({
-            baseURL: "http://localhost:3000",
+            baseURL: "http://127.0.0.1:3000",
             url,
             method,
-            data
+            data,
+            withCredentials: true,
         });
         dispatch(actions.apiCallSuccess(response.data));
 

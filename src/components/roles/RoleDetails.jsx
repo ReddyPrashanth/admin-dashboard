@@ -17,6 +17,9 @@ class RoleDetails extends React.Component {
 
     fetchPermissions = () => {
         const {match} = this.props;
+        this.setState({
+            permissions: []
+        })
         this.props.fetchAttachablePermissions(Number.parseInt(match.params.id));
     }
 
@@ -32,10 +35,6 @@ class RoleDetails extends React.Component {
         const {match} = this.props;
         if(this.state.permissions.length > 0) {
             await this.props.attachPermissionsForARole(match.params.id, this.state.permissions);
-            this.props.fetchRole(Number.parseInt(match.params.id));
-            this.setState({
-                permissions: []
-            })
         }
     }
 

@@ -69,7 +69,13 @@ const slice = createSlice({
             roles.loading = false; 
         },
         permissionsAttached: (roles, action) => {
+            const permIds = action.payload.map(ob => ob.permissionsId);
+            const newPermissions = roles.attachablePermissions.filter(p => permIds.includes(p.id));
+            if(roles.role && newPermissions.length > 0) {
+                roles.role.permissions = [...roles.role.permissions, ...newPermissions];
+            }
             roles.loading = false;
+            roles.attachablePermissions = [];
         }
     }
 });
@@ -128,7 +134,7 @@ export const attachPermissionsForARole = (roleId, permissions) => apiCallBegan({
     url: `${url}/${roleId}/permissions`,
     method: 'post',
     data: {permissions},
-    onStart: rolesRequested.type,
+    onStart: roleCreationRequested.type,
     onSuccess: permissionsAttached.type,
     onError: roleCreationFailed.type
 });

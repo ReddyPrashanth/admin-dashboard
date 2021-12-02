@@ -12,30 +12,47 @@ import UserProfile from './components/users/UserProfile';
 import Roles from './components/roles';
 import Permissions from './components/permissions';
 import RoleDetails from './components/roles/RoleDetails';
+import Permission from './components/permissions/Permission';
+import ProtectedRoute from './components/authentication/ProtectedRoute';
+import axios from 'axios';
+import { loginFailed, loginRequested, loginSucceded } from './store/entities/auth';
 
 const store = configureStore();
 
-function App() {
-  return (
-    <Provider store={store}>
-      <React.Fragment>
-        <NavBar></NavBar>
-        <main className="container mx-16 my-4">
-          <Switch>
-            <Route path="/home" component={Home}/>
-            <Route path="/users/:id" component={UserProfile}/>
-            <Route path="/users" component={Users}/>
-            <Route path="/roles/:id" component={RoleDetails}/>
-            <Route path="/roles" component={Roles}/>
-            <Route path="/permissions" component={Permissions}/>
-            <Route path="/login" component={Login}/>
-            <Route path="/signup" component={SignUp}/>
-            <Redirect exact to="/home" from="/"/>
-          </Switch>
-        </main>
-      </React.Fragment>
-    </Provider>
-  );
+class App extends React.Component {
+  async componentDidMount() {
+    try{
+      store.dispatch({type: loginRequested.type});
+      const response = await axios.get('http://127.0.0.1:3000/auth/me', {withCredentials: true});
+      store.dispatch({type: loginSucceded.type, payload: response.data})
+    }catch(error) {
+      store.dispatch({type: loginFailed.type});
+    }
+  }
+  
+  render() {
+    return (
+      <Provider store={store}>
+        <React.Fragment>
+          <NavBar></NavBar>
+          <main className="container mx-16 my-4">
+            <Switch>
+              <Route path="/home" component={Home}/>
+              <ProtectedRoute path="/users/:id" component={UserProfile}/>
+              <ProtectedRoute path="/users" component={Users}/>
+              <ProtectedRoute path="/roles/:id" component={RoleDetails}/>
+              <ProtectedRoute path="/roles" component={Roles}/>
+              <ProtectedRoute path="/permissions/:id" component={Permission}/>
+              <ProtectedRoute path="/permissions" component={Permissions}/>
+              <Route path="/login" component={Login}/>
+              <Route path="/signup" component={SignUp}/>
+              <Redirect exact to="/home" from="/"/>
+            </Switch>
+          </main>
+        </React.Fragment>
+      </Provider>
+    );
+  }
 }
 
 export default App;

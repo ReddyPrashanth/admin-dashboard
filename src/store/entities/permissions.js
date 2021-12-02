@@ -113,3 +113,9 @@ export const getError = createSelector(
     state => state.entities.permissions,
     permissions => permissions.error
 );
+
+export const getPermission = createSelector(
+    state => state.entities.permissions,
+    (_,id) => id,
+    (permissions, id) => permissions.data.find(p => p.id === id)
+)
