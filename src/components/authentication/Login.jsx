@@ -1,4 +1,4 @@
-import axios from "axios";
+import http from "../../http/api";
 import { connect } from "react-redux";
 import { getError, loginFailed, loginRequested, loginSucceded, resetAuthError } from "../../store/entities/auth";
 import Alert from "../shared/Alert";
@@ -17,7 +17,7 @@ class Login extends Form {
         const {history} = this.props;
         try{
             this.props.authenticateUser();
-            const response = await axios.post('http://127.0.0.1:3000/auth/signin', this.state.data, {withCredentials: true});
+            const response = await http.post('/auth/signin', this.state.data, {withCredentials: true});
             this.props.loginSucceded(response.data);
             history.push('/home');
         }catch(error) {

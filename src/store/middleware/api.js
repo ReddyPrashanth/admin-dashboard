@@ -1,4 +1,4 @@
-import axios from 'axios';
+import http from '../../http/api';
 import * as actions from '../api';
 
 const api = ({ dispatch }) => next => async action => {
@@ -11,8 +11,7 @@ const api = ({ dispatch }) => next => async action => {
     next(action);
 
     try{
-        const response = await axios.request({
-            baseURL: "http://127.0.0.1:3000",
+        const response = await http.request({
             url,
             method,
             data,

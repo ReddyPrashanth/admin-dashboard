@@ -14,7 +14,7 @@ import Permissions from './components/permissions';
 import RoleDetails from './components/roles/RoleDetails';
 import Permission from './components/permissions/Permission';
 import ProtectedRoute from './components/authentication/ProtectedRoute';
-import axios from 'axios';
+import http from './http/api';
 import { loginFailed, loginRequested, loginSucceded } from './store/entities/auth';
 
 const store = configureStore();
@@ -23,7 +23,7 @@ class App extends React.Component {
   async componentDidMount() {
     try{
       store.dispatch({type: loginRequested.type});
-      const response = await axios.get('http://127.0.0.1:3000/auth/me', {withCredentials: true});
+      const response = await http.get('/auth/me', {withCredentials: true});
       store.dispatch({type: loginSucceded.type, payload: response.data})
     }catch(error) {
       store.dispatch({type: loginFailed.type});
