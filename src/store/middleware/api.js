@@ -16,7 +16,7 @@ const api = ({ dispatch }) => next => async action => {
             url,
             method,
             data,
-            withCredentials: true,
+            withCredentials: true
         });
         dispatch(actions.apiCallSuccess(response.data));
 

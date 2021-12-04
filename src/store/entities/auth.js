@@ -22,6 +22,9 @@ const slice = createSlice({
             auth.loading = false;
             auth.error = action.payload;
         },
+        signupSucceded: (auth, action) => {
+            auth.loading = true;
+        },
         logoutUser: (auth, action) => {
             auth.isAuthenticated = false;
             auth.user = null;
@@ -32,7 +35,14 @@ const slice = createSlice({
     }
 });
 
-export const {loginRequested, loginSucceded, loginFailed, logoutUser, resetAuthError} = slice.actions;
+export const {
+    loginRequested, 
+    loginSucceded, 
+    loginFailed, 
+    logoutUser, 
+    resetAuthError, 
+    signupSucceded
+} = slice.actions;
 
 export default slice.reducer;
 
@@ -57,6 +67,32 @@ export const logout = () => apiCallBegan({
     onError: loginFailed.type
 })
 
+export const signup = (data) => {
+    const {
+        email, 
+        firstName, 
+        lastName, 
+        password, 
+        gender, 
+        address1, 
+        address2, 
+        city, 
+        state, 
+        country, 
+        zipCode, 
+        phone
+    } = data;
+    const address = {address1, address2, city, state, country, zipCode, phone};
+    const user = {email, firstName, lastName, password, gender, address };
+    return apiCallBegan({
+        url: `${url}/signUp`,
+        data: user,
+        method: 'post',
+        onStart: loginRequested.type,
+        onSuccess: signupSucceded.type,
+        onError: loginFailed.type
+    });
+}
 // Selectors
 
 export const getUser = createSelector(
@@ -69,7 +105,7 @@ export const isAuthenticated = createSelector(
     auth => auth.isAuthenticated,
 )
 
-export const getLoginError = createSelector(
+export const getError = createSelector(
     state => state.entities.auth,
     auth => auth.error
 )

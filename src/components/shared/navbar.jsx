@@ -51,7 +51,7 @@ class NavBar extends React.Component {
                 </div>
                     <div>
                         {!authenticated && <Link to="/login" className="font-semibold text-sm hover:bg-gray-200 px-4 py-2 rounded">Sign In</Link>}
-                        <Link to="/signup" className="font-semibold text-sm hover:bg-gray-200 px-4 py-2 rounded">Sign Up</Link>
+                        {authenticated &&<Link to="/signup" className="font-semibold text-sm hover:bg-gray-200 px-4 py-2 rounded">Sign Up</Link>}
                         {authenticated && <Link to="/home" onClick={this.handleLogout} className="font-semibold text-sm hover:bg-gray-200 px-4 py-2 rounded">Log Out</Link>}
                     </div>
                     <aside className={classes}>

@@ -3,10 +3,10 @@ import { useDispatch } from "react-redux";
 const Alert = ({message, color, actiontype}) => {
     const dispatch = useDispatch();
     const msgEl = Array.isArray(message) 
-                    ? message.map((m, index)=> <li key={index} className="block">{m}</li>) 
-                    : <li className="block">{message}</li>
+                    ? message.map((m, index)=> <li key={index} className="block text-sm">{m}</li>) 
+                    : <li className="block text-sm">{message}</li>
     return (
-        <div className={`bg-${color}-100 border border-${color}-400 text-${color}-700 px-4 py-3 rounded relative`} role="alert">
+        <div className={`bg-${color}-100 border border-${color}-400 text-${color}-700 px-4 py-3 mb-2 rounded relative`} role="alert">
             <ul>
                 {msgEl}
             </ul>

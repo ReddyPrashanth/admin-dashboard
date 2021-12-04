@@ -3,7 +3,7 @@ const SocialMedia = () => {
         <div className="m-2 p-4 border rounded space-y-2">
             <div className="flex items-center">
                 <p className="w-1/3 font-medium">Website</p>
-                <p className="w-2/3 font-light">https://127.0.0.1</p>
+                <p className="w-2/3 font-light">https://localhost:3000</p>
             </div>
             <div className="flex items-center">
                 <p className="w-1/3 font-medium">Github</p>

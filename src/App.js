@@ -45,7 +45,7 @@ class App extends React.Component {
               <ProtectedRoute path="/permissions/:id" component={Permission}/>
               <ProtectedRoute path="/permissions" component={Permissions}/>
               <Route path="/login" component={Login}/>
-              <Route path="/signup" component={SignUp}/>
+              <ProtectedRoute path="/signup" component={SignUp}/>
               <Redirect exact to="/home" from="/"/>
             </Switch>
           </main>

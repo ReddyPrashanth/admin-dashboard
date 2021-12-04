@@ -1,6 +1,6 @@
 import axios from "axios";
 import { connect } from "react-redux";
-import { getLoginError, loginFailed, loginRequested, loginSucceded, resetAuthError } from "../../store/entities/auth";
+import { getError, loginFailed, loginRequested, loginSucceded, resetAuthError } from "../../store/entities/auth";
 import Alert from "../shared/Alert";
 import Form from "../shared/Form";
 
@@ -19,9 +19,10 @@ class Login extends Form {
             this.props.authenticateUser();
             const response = await axios.post('http://127.0.0.1:3000/auth/signin', this.state.data, {withCredentials: true});
             this.props.loginSucceded(response.data);
-            history.push('/home')
+            history.push('/home');
         }catch(error) {
             this.props.loginFailed(error.response.data.message);
+            history.push('/login');
         }
     }
 
@@ -53,7 +54,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-    error: getLoginError(state)
-})
+    error: getError(state)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
