@@ -16,6 +16,9 @@ import Permission from './components/permissions/Permission';
 import ProtectedRoute from './components/authentication/ProtectedRoute';
 import http from './http/api';
 import { loginFailed, loginRequested, loginSucceded } from './store/entities/auth';
+import Products from './components/products';
+import CreateProduct from './components/products/CreateProduct';
+import Categories from './components/categories';
 
 const store = configureStore();
 
@@ -44,6 +47,9 @@ class App extends React.Component {
               <ProtectedRoute path="/roles" component={Roles}/>
               <ProtectedRoute path="/permissions/:id" component={Permission}/>
               <ProtectedRoute path="/permissions" component={Permissions}/>
+              <ProtectedRoute path="/categories" component={Categories} />
+              <ProtectedRoute path="/products/create" component={CreateProduct} />
+              <ProtectedRoute path="/products" component={Products} />
               <Route path="/login" component={Login}/>
               <ProtectedRoute path="/signup" component={SignUp}/>
               <Redirect exact to="/home" from="/"/>
