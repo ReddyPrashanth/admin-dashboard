@@ -19,6 +19,7 @@ import { loginFailed, loginRequested, loginSucceded } from './store/entities/aut
 import Products from './components/products';
 import CreateProduct from './components/products/CreateProduct';
 import Categories from './components/categories';
+import ServiceMonitoring from './components/monitoring';
 
 const store = configureStore();
 
@@ -50,6 +51,7 @@ class App extends React.Component {
               <ProtectedRoute path="/categories" component={Categories} />
               <ProtectedRoute path="/products/create" component={CreateProduct} />
               <ProtectedRoute path="/products" component={Products} />
+              <ProtectedRoute path="/monitoring" component={ServiceMonitoring} />
               <Route path="/login" component={Login}/>
               <ProtectedRoute path="/signup" component={SignUp}/>
               <Redirect exact to="/home" from="/"/>

@@ -22,8 +22,11 @@ const slice = createSlice({
             auth.loading = false;
         }, 
         loginFailed: (auth, action) => {
-            auth.loading = false;
+            auth.isAuthenticated = false;
+            sessionStorage.setItem('isLoggedIn', false);
             auth.error = action.payload;
+            auth.user = null;
+            auth.loading = false;
         },
         signupSucceded: (auth, action) => {
             auth.loading = true;

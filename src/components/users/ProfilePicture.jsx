@@ -1,10 +1,8 @@
-import UserProfileIcon from "../../icons/UserProfile";
-
 const ProfilePicture = ({user}) => {
     return (
         <div className="text-center w-1/3 p-4">
-            <button className="p-8 bg-gray-200 rounded-full">
-                <UserProfileIcon />
+            <button className="bg-gray-200 rounded-full">
+                <img className="object-cover rounded-full h-20 w-20" src="http://127.0.0.1:3001/users/avatar" alt="profile" />
             </button>
             <br />
             <br />

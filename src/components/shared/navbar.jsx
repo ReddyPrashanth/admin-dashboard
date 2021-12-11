@@ -11,7 +11,8 @@ class NavBar extends React.Component {
         isOpen: false,
         hide: {
             admin: true,
-            products: true
+            products: true,
+            monitoring: true
         }
     }
 
@@ -106,6 +107,15 @@ class NavBar extends React.Component {
                             </span>
                             <span className="flex items-center px-10 py-3 hover:bg-gray-700">
                                 <Link to="/products/create" className="mr-2 text-sm font-semibold" onClick={this.closeDrawer}>CREATE PRODUCT</Link>
+                            </span>
+                        </div>}
+                        <div className="flex items-center px-5 py-3 hover:bg-gray-700">
+                            <span className="mr-4 text-sm font-semibold">SERVICE MONITORING</span> 
+                            <button onClick={() => this.toggleMenu('monitoring')} className="flex items-center">{hide.monitoring ? <ChevronUpIcon /> : <ChevronDownIcon />}</button>
+                        </div>
+                        {!hide.monitoring && <div>
+                            <span className="flex items-center px-10 py-3 hover:bg-gray-700">
+                                <Link to="/monitoring" className="mr-2 text-sm font-semibold" onClick={this.closeDrawer}>HEALTH CHECK</Link>
                             </span>
                         </div>}
                     </div>
