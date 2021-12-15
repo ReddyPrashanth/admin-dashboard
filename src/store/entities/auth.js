@@ -31,6 +31,10 @@ const slice = createSlice({
         signupSucceded: (auth, action) => {
             auth.loading = true;
         },
+        signupFailed: (auth, action) => {
+            auth.error = action.payload;
+            auth.loading = false;
+        },
         logoutUser: (auth, action) => {
             auth.isAuthenticated = false;
             sessionStorage.setItem('isLoggedIn', false);
@@ -49,7 +53,8 @@ export const {
     loginFailed, 
     logoutUser, 
     resetAuthError, 
-    signupSucceded
+    signupSucceded,
+    signupFailed
 } = slice.actions;
 
 export default slice.reducer;
@@ -98,7 +103,7 @@ export const signup = (data) => {
         method: 'post',
         onStart: loginRequested.type,
         onSuccess: signupSucceded.type,
-        onError: loginFailed.type
+        onError: signupFailed.type
     });
 }
 // Selectors

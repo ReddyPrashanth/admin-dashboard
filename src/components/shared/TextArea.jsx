@@ -1,7 +1,7 @@
 function TextArea({name, label, rows, ...rest}) {
     return (
-        <div className="mb-4">
-            <label htmlFor={name} className="block text-sm font-bold mb-2 text-gray-700">{label}</label>
+        <div>
+            <label htmlFor={name} className="block text-sm font-bold mb-1 text-gray-700">{label}</label>
             <textarea
                 {...rest}
                 id={name}

@@ -17,9 +17,10 @@ import ProtectedRoute from './components/authentication/ProtectedRoute';
 import http from './http/api';
 import { loginFailed, loginRequested, loginSucceded } from './store/entities/auth';
 import Products from './components/products';
-import CreateProduct from './components/products/CreateProduct';
 import Categories from './components/categories';
 import ServiceMonitoring from './components/monitoring';
+import Subcategories from './components/subcategories';
+import CreateProducts from './components/products/CreateProducts';
 
 const store = configureStore();
 
@@ -48,8 +49,9 @@ class App extends React.Component {
               <ProtectedRoute path="/roles" component={Roles}/>
               <ProtectedRoute path="/permissions/:id" component={Permission}/>
               <ProtectedRoute path="/permissions" component={Permissions}/>
+              <ProtectedRoute path="/categories/:id/subcategories" component={Subcategories}/>
               <ProtectedRoute path="/categories" component={Categories} />
-              <ProtectedRoute path="/products/create" component={CreateProduct} />
+              <ProtectedRoute path="/subcategories/:id/products" component={CreateProducts} />
               <ProtectedRoute path="/products" component={Products} />
               <ProtectedRoute path="/monitoring" component={ServiceMonitoring} />
               <Route path="/login" component={Login}/>

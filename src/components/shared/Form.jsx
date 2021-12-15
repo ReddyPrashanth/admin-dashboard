@@ -35,7 +35,7 @@ class Form extends React.Component {
                 type={type}
                 value={data[name]}
                 onChange={this.handleChange}
-                plceholder={label}
+                placeholder={label}
                 maxLength={maxLength}/>
     }
 
@@ -47,7 +47,7 @@ class Form extends React.Component {
                 rows={rows}
                 value={data[name]}
                 onChange={this.handleChange}
-                plceholder={label}/>
+                placeholder={label}/>
     }
 }
 
