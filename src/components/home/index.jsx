@@ -1,29 +1,11 @@
 import React from "react";
 
-class Home extends React.Component{
-    state = {
-        isOpen: false
-    }
-
-    handleDrawer = () => {
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
-    }
-
-    closeDrawer = () => {
-        this.setState({
-            isOpen: false
-        })
-    }
-
-    render() {
-        return (
-            <div>
-                Home Page
-            </div>
-        )
-    }
+const Home = () => {
+    return (
+        <div>
+            Home component
+        </div>
+    )
 }
 
 export default Home;
