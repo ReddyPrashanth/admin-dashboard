@@ -1,14 +1,13 @@
 import toast from 'react-hot-toast';
-import Form from "../shared/Form";
+import Form from '../shared/Form';
+import Alert from '../shared/Alert';
 import http from '../../http/api';
-import Alert from "../shared/Alert";
 
-class CreateService extends Form {
+export class CreateSize extends Form {
     state = {
         data: {
             name: '',
-            description: '',
-            url: ''
+            description: ''
         },
         error: null
     }
@@ -17,17 +16,15 @@ class CreateService extends Form {
         e.preventDefault();
         const formData = this.state.data;
         try{
-            const {data} = await http.post('/monitoring', formData, {withCredentials: true});
-            this.props.addService(data);
+            const {data} = await http.post('/productsizes', formData, {withCredentials: true});
             this.setState({
                 ...this.state,
                 data: {
                     name: '',
                     description: '',
-                    url: ''
                 }
             });
-            toast.success(`Monitoring is enabled for service ${data.name}.`)
+            toast.success(`Size ${data.name} is created.`);
         }catch(error) {
             this.setState({
                 ...this.state,
@@ -39,19 +36,16 @@ class CreateService extends Form {
     render() {
         const {error} = this.state;
         return (
-            <div className="w-1/3 rounded border p-2">
+            <div className="bg-white rounded border p-2 max-w-full mb-2">
                 {error && <Alert message={error} color="red" actiontype={this.resetError} isDispatch={false}/>}
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput("name", "Service Name")}
-                    {this.renderInput("url", "Service URL")}
-                    {this.renderTextArea("description", "Service Description", "3")}
+                    {this.renderInput("name", "Size Name")}
+                    {this.renderTextArea("description", "Size Description", "3")}
                     <div className="flex justify-between">
-                        {this.renderButton("CREATE SERVICE")}
+                        {this.renderButton("CREATE PRODUCT SIZE")}
                     </div>
                 </form>
             </div>
         )
     }
 }
-
-export default CreateService;

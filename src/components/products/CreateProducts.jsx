@@ -1,4 +1,5 @@
 import React from 'react';
+import toast from 'react-hot-toast';
 import Input from '../shared/Input';
 import TextArea from '../shared/TextArea';
 import http from '../../http/api';
@@ -29,6 +30,7 @@ class CreateProducts extends React.Component {
         const products = [...this.state.products];
         products[index][input.name] = input.value;
         this.setState({
+            ...this.state,
             products
         });
     }
@@ -42,6 +44,7 @@ class CreateProducts extends React.Component {
             stock: '1'
         });
         this.setState({
+            ...this.state,
             products
         });
     }
@@ -50,12 +53,14 @@ class CreateProducts extends React.Component {
         const products = [...this.state.products];
         products.splice(index, 1);
         this.setState({
+            ...this.state,
             products
         })
     }
 
     resetError = () => {
         this.setState({
+            ...this.state,
             error: null
         })
     }
@@ -73,8 +78,9 @@ class CreateProducts extends React.Component {
             }
         });
         try{
-            await http.post('/products', {products}, {withCredentials: true});
+            const {data} = await http.post('/products', {products}, {withCredentials: true});
             this.setState({
+                ...this.state,
                 products: [
                     {
                         name: '',
@@ -83,9 +89,11 @@ class CreateProducts extends React.Component {
                         stock: '1'
                     }
                 ]
-            })
+            });
+            toast.success(`Products ${data.map(p => p.name).join(',')} are created.`);
         }catch(error) {
             this.setState({
+                ...this.state,
                 error: error.response.data.message
             })
         }

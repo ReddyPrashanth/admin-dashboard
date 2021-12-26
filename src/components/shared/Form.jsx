@@ -1,15 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Input from './Input';
+import Select from './Select';
 import TextArea from './TextArea';
 
 class Form extends React.Component {
     handleChange = ({currentTarget: input}) => {
         const data = {...this.state.data};
-        data[input.name] = input.value;
+        data[input.name] = input.type === 'number' ? Number.parseInt(input.value) : input.value;
         this.setState({
+            ...this.state,
             data
-        })
+        });
+    }
+
+    resetError = () => {
+        this.setState({
+            ...this.state,
+            error: null
+        });
     }
 
     renderButton(text) {
@@ -37,6 +46,16 @@ class Form extends React.Component {
                 onChange={this.handleChange}
                 placeholder={label}
                 maxLength={maxLength}/>
+    }
+
+    renderSelect(name, label, options) {
+        const { data } = this.state;
+        return <Select
+                name={name}
+                label={label}
+                value={data[name]}
+                options={options}
+                onChange={this.handleChange}/>
     }
 
     renderTextArea(name, label, rows="3") {

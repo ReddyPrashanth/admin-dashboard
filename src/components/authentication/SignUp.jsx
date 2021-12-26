@@ -66,7 +66,7 @@ class SignUp extends Form {
                                 {this.renderInput("city", "City")}
                                 {this.renderInput("state", "State")}
                                 {this.renderInput("country", "Country")}
-                                {this.renderInput("zipCode", "Zip Code", "number")}
+                                {this.renderInput("zipCode", "Zip Code")}
                             </div>
                         </div>
                         <div className="flex justify-between">

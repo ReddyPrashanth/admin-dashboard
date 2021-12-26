@@ -1,4 +1,5 @@
 import React from 'react';
+import {Toaster} from 'react-hot-toast';
 import './App.css';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import configureStore from './store/configureStore';
@@ -21,6 +22,7 @@ import Categories from './components/categories';
 import ServiceMonitoring from './components/monitoring';
 import Subcategories from './components/subcategories';
 import CreateProducts from './components/products/CreateProducts';
+import Product from './components/products/Product';
 
 const store = configureStore();
 
@@ -39,6 +41,10 @@ class App extends React.Component {
     return (
       <Provider store={store}>
         <React.Fragment>
+          <Toaster 
+            position='top-center'
+            toastOptions={{duration: 4000}}
+          />
           <NavBar></NavBar>
           <main className="container mx-16 my-4">
             <Switch>
@@ -52,6 +58,7 @@ class App extends React.Component {
               <ProtectedRoute path="/categories/:id/subcategories" component={Subcategories}/>
               <ProtectedRoute path="/categories" component={Categories} />
               <ProtectedRoute path="/subcategories/:id/products" component={CreateProducts} />
+              <ProtectedRoute path="/products/:id" component={Product} />
               <ProtectedRoute path="/products" component={Products} />
               <ProtectedRoute path="/monitoring" component={ServiceMonitoring} />
               <Route path="/login" component={Login}/>

@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import Form from "../shared/Form";
 import http from '../../http/api';
 import { connect } from "react-redux";
@@ -16,14 +17,15 @@ class CreateSubCategory extends Form {
         const formData = {...this.state.data, categoryId: Number.parseInt(this.props.categoryId)};
         try{
             this.props.createSubCategory();
-            const response = await http.post(url, formData, {withCredentials: true});
-            this.props.subCategoryCreated(response.data);
+            const {data} = await http.post(url, formData, {withCredentials: true});
+            this.props.subCategoryCreated(data);
             this.setState({
                 data: {
                     name: '',
                     description: ''
                 }
             });
+            toast.success(`Sub category ${data.name} is created.`)
         }catch(error) {
             this.props.subCategoryFailed(error.response.data)
         }

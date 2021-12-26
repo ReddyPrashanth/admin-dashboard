@@ -22,7 +22,7 @@ class Table extends React.Component {
     }
 
     createRow(item) {
-        const {columns, name} = this.props;
+        const {columns, name, editRow} = this.props;
         return <tr key={item.id}>
             {columns.map(col => {
                 if(col.name !== 'address') return <td key={col.name} className="px-6 py-4">{item[col.name]}</td>
@@ -34,6 +34,9 @@ class Table extends React.Component {
                         <RightArrowIcon />
                     </button>
                 </Link>
+                {editRow &&<button onClick={() => editRow(item.id)} key="view" className="text-purple-600 hover:text-purple-800 border bg-gray-200 rounded p-2 ml-2 hover:bg-gray-300">
+                        <RightArrowIcon />
+                </button>}
             </td>
         </tr>
     }

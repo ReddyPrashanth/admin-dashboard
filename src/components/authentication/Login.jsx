@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import http from "../../http/api";
 import { connect } from "react-redux";
 import { getError, loginFailed, loginRequested, loginSucceded, resetAuthError } from "../../store/entities/auth";
@@ -17,12 +18,12 @@ class Login extends Form {
         const {history} = this.props;
         try{
             this.props.authenticateUser();
-            const response = await http.post('/auth/signin', this.state.data, {withCredentials: true});
-            this.props.loginSucceded(response.data);
+            const {data} = await http.post('/auth/signin', this.state.data, {withCredentials: true});
+            this.props.loginSucceded(data);
+            toast.success(`Welcome back ${data.firstName}.`);
             history.push('/home');
         }catch(error) {
             this.props.loginFailed(error.response.data.message);
-            history.push('/login');
         }
     }
 

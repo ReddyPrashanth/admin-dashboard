@@ -1,4 +1,5 @@
 import { createSlice, createSelector } from "@reduxjs/toolkit";
+import toast from 'react-hot-toast';
 import { apiCallBegan } from '../api';
 
 const slice = createSlice({
@@ -41,6 +42,7 @@ const slice = createSlice({
         permissionCreated: (permissions, action) => {
             permissions.loading = false;
             permissions.error = null;
+            toast.success(`Permission ${action.payload.name} is created.`);
         },
         permissionCreationFailed: (permissions, action) => {
             permissions.error = action.payload;

@@ -5,6 +5,7 @@ import permissionsReducer from './permissions';
 import authReducer from './auth';
 import categoriesReducer from './categories';
 import subcategoriesReducer from './subcategories';
+import productsReducer from './products';
 
 export default combineReducers({
     users: usersReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
     permissions: permissionsReducer,
     auth: authReducer,
     categories: categoriesReducer,
-    subcategories: subcategoriesReducer
+    subcategories: subcategoriesReducer,
+    products: productsReducer,
 });

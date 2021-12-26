@@ -1,4 +1,5 @@
 import { createSlice, createSelector } from "@reduxjs/toolkit";
+import toast from 'react-hot-toast';
 import { apiCallBegan } from '../api';
 
 const slice = createSlice({
@@ -56,6 +57,7 @@ const slice = createSlice({
             roles.error = null;
             roles.formData.name = "";
             roles.formData.description = "";
+            toast.success(`Role ${action.payload.name} is created.`)
         },
         roleCreationFailed: (roles, action) => {
             roles.error = action.payload;

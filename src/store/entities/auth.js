@@ -1,4 +1,5 @@
 import { createSlice, createSelector } from "@reduxjs/toolkit";
+import toast from 'react-hot-toast';
 import { apiCallBegan } from "../api";
 
 const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'false' ? false: true;
@@ -30,6 +31,7 @@ const slice = createSlice({
         },
         signupSucceded: (auth, action) => {
             auth.loading = true;
+            toast.success(`User ${action.payload.firstName} is created.`);
         },
         signupFailed: (auth, action) => {
             auth.error = action.payload;
