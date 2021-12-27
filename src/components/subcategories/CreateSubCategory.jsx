@@ -1,4 +1,5 @@
 import toast from 'react-hot-toast';
+import Joi from 'joi';
 import Form from "../shared/Form";
 import http from '../../http/api';
 import { connect } from "react-redux";
@@ -9,11 +10,18 @@ class CreateSubCategory extends Form {
         data: {
             name: '',
             description: ''
-        }
+        },
+        validationErrors: {}
     }
 
-    handleSubmit = async (e) => {
-        e.preventDefault();
+    schemaOptions = {
+        name: Joi.string().required().label('Sub Category'),
+        description: Joi.string().required().label('Sub Category Description')
+    }
+
+    schema = Joi.object(this.schemaOptions);
+
+    doSubmit = async () => {
         const formData = {...this.state.data, categoryId: Number.parseInt(this.props.categoryId)};
         try{
             this.props.createSubCategory();
@@ -34,8 +42,8 @@ class CreateSubCategory extends Form {
     render() {
         return (
             <div className="bg-white rounded border p-2 max-w-full">
-                <form onSubmit={this.handleSubmit}>
-                    {this.renderInput("name", "Sub Category Name")}
+                <form onSubmit={this.handleSubmit} autoComplete="off">
+                    {this.renderInput("name", "Sub Category")}
                     {this.renderTextArea("description", "Sub Category Description", "3")}
                     <div className="flex justify-between">
                         {this.renderButton("CREATE SUB CATEGORY")}

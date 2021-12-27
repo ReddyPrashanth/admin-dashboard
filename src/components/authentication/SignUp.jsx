@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import Joi from 'joi';
 import { getError, resetAuthError, signup } from "../../store/entities/auth";
 import Alert from "../shared/Alert";
 import Form from "../shared/Form";
@@ -17,11 +18,27 @@ class SignUp extends Form {
             state: "",
             country: "",
             zipCode: ""            
-        }
+        },
+        validationErrors: {}
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
+    schemaOptions = {
+        firstName: Joi.string().required().label('First Name'),
+        lastName: Joi.string().required().label('Last Name'),
+        email: Joi.string().required().email({ tlds: { allow: false } }).label('Email'),
+        password: Joi.string().required().label('Password'),
+        phone: Joi.string().required().label('Phone'),
+        address1: Joi.string().required().label('Address1'),
+        address2: Joi.string().required().label('Address2'),
+        city: Joi.string().required().label('City'),
+        state: Joi.string().required().label('State'),
+        country: Joi.string().required().label('Country'),
+        zipCode: Joi.string().required().label('Zip Code')
+    }
+
+    schema = Joi.object(this.schemaOptions);
+
+    doSubmit = () => {
         this.props.signup(this.state.data);
         this.setState({
             data: {
@@ -51,7 +68,7 @@ class SignUp extends Form {
                 <div className="py-2 bg-white rounded shadow p-4 w-2/3 md:w-1/2 lg:w-1/2">
                     {error && <Alert message={error} color="red" actiontype={resetAuthError.type}/>}
                     <h3 className="text-lg font-medium text-purple-700 mb-2 text-center">Sign Up Form</h3>
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={this.handleSubmit} autoComplete="off">
                         <div className="flex items-start">
                             <div className="w-1/2 mr-2">
                                 {this.renderInput("firstName", "First Name")}

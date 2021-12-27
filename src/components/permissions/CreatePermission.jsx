@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import Joi from 'joi';
 import { createPermission, resetPermissionError } from "../../store/entities/permissions";
 import Alert from "../shared/Alert";
 import Form from "../shared/Form";
@@ -8,11 +9,18 @@ class CreatePermission extends Form {
         data: {
             name: "",
             description: ""
-        }
+        },
+        validationErrors: {}
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
+    schemaOptions = {
+        name: Joi.string().required().label('Permission Name'),
+        description: Joi.string().required().label('Permission Description')
+    }
+
+    schema = Joi.object(this.schemaOptions);
+
+    doSubmit = () => {
         const formData = this.state.data;
         this.props.createPermission(formData);
         this.setState({
@@ -30,7 +38,7 @@ class CreatePermission extends Form {
                 {error && <Alert message={error} color="red" actiontype={resetPermissionError.type}/>}
                 <br />
                 <h3 className="text-lg font-medium text-purple-700 mb-2 text-center">Create Permission Form</h3>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} autoComplete="off">
                     {this.renderInput("name", "Permission")}
                     {this.renderTextArea("description", "Permission Description", "3")}
                     <div className="flex justify-between">

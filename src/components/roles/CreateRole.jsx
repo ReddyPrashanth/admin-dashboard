@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import Joi from 'joi';
 import { createRole, resetRoleError } from "../../store/entities/roles";
 import Alert from "../shared/Alert";
 import Form from "../shared/Form";
@@ -8,11 +9,18 @@ class CreateRole extends Form {
         data: {
             name: "",
             description: ""
-        }
+        },
+        validationErrors: {}
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
+    schemaOptions = {
+        name: Joi.string().required().label('Role'),
+        description: Joi.string().required().label('Role Description')
+    }
+
+    schema = Joi.object(this.schemaOptions);
+
+    doSubmit = () => {
         const formData = this.state.data;
         this.props.createRole(formData);
         this.setState({
@@ -34,7 +42,7 @@ class CreateRole extends Form {
                 {error && <Alert message={error} color="red" actiontype={resetRoleError.type}/>}
                 <br />
                 <h3 className="text-lg font-medium text-purple-700 mb-2 text-center">Create Role Form</h3>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} autoComplete="off">
                     {this.renderInput("name", "Role")}
                     {this.renderTextArea("description", "Role Description", "3")}
                     <div className="flex justify-between">

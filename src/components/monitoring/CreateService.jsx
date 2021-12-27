@@ -1,4 +1,5 @@
 import toast from 'react-hot-toast';
+import Joi from 'joi';
 import Form from "../shared/Form";
 import http from '../../http/api';
 import Alert from "../shared/Alert";
@@ -10,11 +11,19 @@ class CreateService extends Form {
             description: '',
             url: ''
         },
+        validationErrors: {},
         error: null
     }
 
-    handleSubmit = async (e) => {
-        e.preventDefault();
+    schemaOptions = {
+        name: Joi.string().required().label('Service Name'),
+        description: Joi.string().required().label('Service Description'),
+        url: Joi.string().required().label('Service URL')
+    }
+
+    schema = Joi.object(this.schemaOptions);
+
+    doSubmit = async () => {
         const formData = this.state.data;
         try{
             const {data} = await http.post('/monitoring', formData, {withCredentials: true});
@@ -41,7 +50,7 @@ class CreateService extends Form {
         return (
             <div className="w-1/3 rounded border p-2">
                 {error && <Alert message={error} color="red" actiontype={this.resetError} isDispatch={false}/>}
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} autoComplete='off'>
                     {this.renderInput("name", "Service Name")}
                     {this.renderInput("url", "Service URL")}
                     {this.renderTextArea("description", "Service Description", "3")}
